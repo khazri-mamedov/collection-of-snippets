@@ -3,6 +3,7 @@ package org.scratch.basic;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,7 @@ public class StringManipulation {
     public Map<Character, Long> duplicateCharsIterate(final String value) {
         Map<Character, Long> result = new HashMap<>();
         
-        for (char ch : value.toCharArray()) {
+        for (var ch : value.toCharArray()) {
             result.merge(ch, 1L, Long::sum);
         }
         
@@ -52,7 +53,7 @@ public class StringManipulation {
         StringBuilder result = new StringBuilder();
         
         final String[] words = sentence.split(" ");
-        for (String word : words) {
+        for (var word : words) {
             StringBuilder reverseWord = new StringBuilder(word).reverse();
             result.append(reverseWord).append(" ");
         }
@@ -74,7 +75,7 @@ public class StringManipulation {
      * Checking all characters are digits
      */
     public boolean isAllDigits(final String value) {
-        for(char ch : value.toCharArray()) {
+        for(var ch : value.toCharArray()) {
             if(!Character.isDigit(ch)) {
                 return false;
             }
@@ -84,10 +85,35 @@ public class StringManipulation {
     }
     
     /**
-     * Checking all characters are digits with Stream API. allMatch will be slower than reverting anyMatch
+     * Checking all characters are digits with Stream API.
+     * allMatch will be slower than reverting anyMatch
      */
     public boolean isAllDigitsStream(final String value) {
         return !value.chars()
                 .anyMatch(i -> !Character.isDigit(i));
+    }
+    
+    /**
+     * Count vowels in a string (case-insensitive)
+     */
+    public long countVowels(final String value) {
+        long vowelsCount = 0L;
+        final Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u');
+        
+        for (var ch : value.toLowerCase().toCharArray()) {
+            if (vowels.contains(ch)) {
+                ++vowelsCount;
+            }
+        }
+        
+        return vowelsCount;
+    }
+    
+    /**
+     * Count vowels in a string with Stream API (case-insensitive)
+     */
+    public long countVowelsStream(final String value) {
+        final Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u');
+        return value.toLowerCase().chars().filter(i -> vowels.contains((char) i)).count();
     }
 }

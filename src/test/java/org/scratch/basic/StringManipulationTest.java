@@ -81,4 +81,36 @@ public class StringManipulationTest {
         
         assertTrue(result);
     }
+    
+    @Test
+    public void testIsAllDigitsStreamFail() {
+        final String testValue = "1122a";
+        boolean result = stringManipulation.isAllDigitsStream(testValue);
+        
+        assertFalse(result);
+    }
+    
+    @Test
+    public void testCountVowelsSuccess() {
+        final String testValue = "Aaa";
+        long result = stringManipulation.countVowels(testValue);
+        
+        assertSame(result, 3L);
+    }
+    
+    @Test
+    public void testCountVowelsSuccess_0() {
+        final String testValue = "sssss";
+        long result = stringManipulation.countVowels(testValue);
+        
+        assertSame(result, 0L);
+    }
+    
+    @Test
+    public void testCountVowelsStreamSuccess() {
+        final String testValue = "Aaa";
+        long result = stringManipulation.countVowelsStream(testValue);
+        
+        assertSame(result, 3L);
+    }
 }
