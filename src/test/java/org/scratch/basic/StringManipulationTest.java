@@ -2,6 +2,8 @@ package org.scratch.basic;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,7 +39,7 @@ public class StringManipulationTest {
     }
     
     @Test
-    public void testFirstNonRepeatedFail() {
+    public void testFirstNonRepeatedFail_Throws() {
         final String testValue = "ccc";
         assertThrows(IllegalArgumentException.class, () -> stringManipulation.firstNonRepeated(testValue));
     }
@@ -112,5 +114,109 @@ public class StringManipulationTest {
         long result = stringManipulation.countVowelsStream(testValue);
         
         assertSame(result, 3L);
+    }
+    
+    @Test
+    public void testOccurrencesOfCharSuccess() {
+        final String word = "Some simple sentence";
+        
+        assertSame(stringManipulation.occurrencesOfChar(word, 's'), 3);
+    }
+    
+    @Test
+    public void testOccurrencesOfCharLoopSuccess() {
+        final String word = "Some simple sentence";
+        
+        assertSame(stringManipulation.occurrencesOfCharLoop(word, 's'), 3);
+    }
+    
+    @Test
+    public void testRemoveWhiteSpacesSuccess() {
+        final String testValue = " H e l l o ";
+        
+        assertEquals(stringManipulation.removeWhiteSpaces(testValue), "Hello");
+    }
+    
+    @Test
+    public void testJoinByDelimiterSuccess() {
+        assertEquals(stringManipulation.joinByDelimiter(
+                '/', "aa", "bb"), "aa/bb");
+    }
+    
+    @Test
+    public void testJoinByDelimiterStreamSuccess() {
+        assertEquals(stringManipulation.joinByDelimiterStream(
+                '/', "aa", "bb"), "aa/bb");
+    }
+    
+    @Test
+    public void testIsPalindromeTrue() {
+        final String word = "abba";
+        
+        assertTrue(stringManipulation.isPalindrome(word));
+    }
+    
+    @Test
+    public void testIsPalindromeLoopTrue() {
+        final String word = "abba";
+        
+        assertTrue(stringManipulation.isPalindromeLoop(word));
+    }
+    
+    @Test
+    public void testIsPalindromeLoopFalse() {
+        final String word = "abbc";
+        
+        assertFalse(stringManipulation.isPalindromeLoop(word));
+    }
+    
+    @Test
+    public void testRemoveDuplicatesStreamSuccess() {
+        final String word = "abba";
+    
+        assertEquals(stringManipulation.removeDuplicatesStream(word), "ab");
+    }
+    
+    @Test
+    public void testRemoveDuplicatesLoopSuccess() {
+        final String word = "abba";
+        
+        assertEquals(stringManipulation.removeDuplicatesLoop(word), "ab");
+    }
+    
+    @Test
+    public void testRemoveCharacterSuccess() {
+        final String word = "abba";
+        
+        assertEquals(stringManipulation.removeCharacter(word, 'a'), "bb");
+    }
+    
+    @Test
+    public void testRemoveCharacterStreamSuccess() {
+        final String word = "abba";
+    
+        assertEquals(stringManipulation.removeCharacterStream(word, 'a'), "bb");
+    }
+    
+    @Test
+    public void testMostFoundCharSuccess() {
+        final String word = "cccaacccb";
+        
+        assertSame(stringManipulation.mostFoundChar(word), 'c');
+    }
+    
+    @Test
+    public void testMostFoundCharStreamSuccess() {
+        final String word = "cccaacccb";
+        
+        assertSame(stringManipulation.mostFoundCharStream(word), 'c');
+    }
+    
+    @Test
+    public void testSortStringsByLength() {
+        String[] strings = new String[] { "ccc", "a", "bb", "dddd" };
+        stringManipulation.sortStringsByLength(strings);
+        
+        assertLinesMatch(Arrays.asList(strings), List.of("a", "bb", "ccc", "dddd"));
     }
 }

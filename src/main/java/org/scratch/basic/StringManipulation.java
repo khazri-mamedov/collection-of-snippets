@@ -1,9 +1,15 @@
 package org.scratch.basic;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -115,5 +121,163 @@ public class StringManipulation {
     public long countVowelsStream(final String value) {
         final Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u');
         return value.toLowerCase().chars().filter(i -> vowels.contains((char) i)).count();
+    }
+    
+    /**
+     * Count occurrences of character in a word ignoring case
+     */
+    public int occurrencesOfChar(final String word, final char ch) {
+        String replacedValue = word.toLowerCase().replace(String.valueOf(ch), "");
+        return word.length() - replacedValue.length();
+    }
+    
+    /**
+     * Count occurrences of character in a word with single loop ignoring case
+     */
+    public int occurrencesOfCharLoop(final String word, final char ch) {
+        int count = 0;
+        
+        for (var wordChar : word.toLowerCase().toCharArray()) {
+            if (wordChar == ch) {
+                ++count;
+            }
+        }
+        return count;
+    }
+    
+    /**
+     * Remove whitespaces with regexp
+     */
+    public String removeWhiteSpaces(final String value) {
+        return value.replaceAll("\\s", "");
+    }
+    
+    /**
+     * Join words by delimiter using StringJoiner from Java 8
+     */
+    public String joinByDelimiter(char delimiter, String... words) {
+        StringJoiner joiner = new StringJoiner(String.valueOf(delimiter));
+        
+        for (var word : words) {
+            joiner.add(word);
+        }
+        
+        return joiner.toString();
+    }
+    
+    /**
+     * Join words by delimiter using Stream API
+     */
+    public String joinByDelimiterStream(char delimiter, String... words) {
+        return Arrays.stream(words).collect(Collectors.joining(String.valueOf(delimiter)));
+    }
+    
+    /**
+     * Checking for palindrome (simple solution)
+     */
+    public boolean isPalindrome(final String word) {
+        return word.equals(new StringBuilder(word).reverse().toString());
+    }
+    
+    /**
+     * Checking for palindrome with single loop
+     */
+    public boolean isPalindromeLoop(final String word) {
+        int wordLength = word.length();
+        
+        for (int i = 0; i < wordLength / 2; ++i) {
+            if (word.charAt(i) != word.charAt(wordLength - i - 1)) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Removing duplicates from a String with Stream API
+     */
+    public String removeDuplicatesStream(final String value) {
+        return Arrays.stream(value.split(""))
+                .distinct()
+                .collect(Collectors.joining());
+    }
+    
+    /**
+     * Removing duplicates from a String
+     */
+    public String removeDuplicatesLoop(final String value) {
+        Set<String> distinct = new LinkedHashSet<>();
+        
+        for (var ch : value.toCharArray()) {
+            distinct.add(String.valueOf(ch));
+        }
+        return String.join("", distinct);
+    }
+    
+    /**
+     * Remove occurrence of character in a String with single loop
+     */
+    public String removeCharacter(final String value, char toRemove) {
+        StringBuilder result = new StringBuilder();
+        
+        for (var ch : value.toCharArray()) {
+            if (ch != toRemove) {
+                result.append(ch);
+            }
+        }
+        return result.toString();
+    }
+    
+    /**
+     * Remove occurrence of character in a String with Stream API
+     */
+    public String removeCharacterStream(final String value, char toRemove) {
+        return value.chars()
+                .filter(character -> character != toRemove)
+                .mapToObj(i -> String.valueOf((char) i))
+                .collect(Collectors.joining());
+    }
+    
+    /**
+     * Find max occurring char in a String using 2 loops
+     */
+    public char mostFoundChar(final String value) {
+        Map<Character, Integer> occurrences = new HashMap<>();
+        
+        for (var ch : value.toCharArray()) {
+            occurrences.merge(ch, 1, Integer::sum);
+        }
+        
+        int maxCount = Collections.max(occurrences.values());
+        
+        for (Map.Entry<Character, Integer> entry : occurrences.entrySet()) {
+            if (entry.getValue() == maxCount) {
+                return entry.getKey();
+            }
+        }
+        
+        return Character.MIN_VALUE;
+    }
+    
+    /**
+     * Find max occurring char in a String using Stream API
+     */
+    public char mostFoundCharStream(final String value) {
+        return value.chars()
+                .mapToObj(ch -> String.valueOf((char) ch))
+                .collect(Collectors.groupingBy(ch -> ch, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(stringLongEntry -> stringLongEntry.getKey().charAt(0))
+                .orElse(Character.MIN_VALUE);
+    }
+    
+    /**
+     * Sort strings by length
+     */
+    public void sortStringsByLength(String... strings) {
+        Arrays.sort(strings, Comparator.comparingInt(String::length));
     }
 }
