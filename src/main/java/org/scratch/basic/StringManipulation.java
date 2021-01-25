@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -279,5 +279,89 @@ public class StringManipulation {
      */
     public void sortStringsByLength(String... strings) {
         Arrays.sort(strings, Comparator.comparingInt(String::length));
+    }
+    
+    /**
+     * Occurrence of substring in a string. Example: "abbba" has only one bb occurrence
+     */
+    public int substringOccurrence(final String value, final String substring) {
+        int position = 0;
+        int substringLength = substring.length();
+        int occurrence = 0;
+        
+        while((position = value.indexOf(substring, position)) != -1) {
+            position += substringLength;
+            ++occurrence;
+        }
+        
+        return occurrence;
+    }
+    
+    /**
+     * Is string anagrams or not. Anagrams - same characters possibly in different order
+     */
+    public boolean isAnagrams(final String firstValue, final String secondValue) {
+        char[] firstChars = firstValue.replaceAll("\\s", "").toLowerCase().toCharArray();
+        char[] secondChars = secondValue.replaceAll("\\s", "").toLowerCase().toCharArray();
+        
+        Arrays.sort(firstChars);
+        Arrays.sort(secondChars);
+        
+        return Arrays.equals(firstChars, secondChars);
+    }
+    
+    /**
+     * Multiline strings before official support in Java 13
+     */
+    public String multilineStrings(String... values) {
+        StringJoiner stringJoiner = new StringJoiner(System.lineSeparator());
+        for (var value : values) {
+            stringJoiner.add(value);
+        }
+        
+        return stringJoiner.toString();
+    }
+    
+    /**
+     * Process multiline string
+     */
+    public void processMultilineString(final String multilineString, final Consumer<String> consumer) {
+        multilineString.lines().forEach(consumer);
+    }
+    
+    /**
+     * Is string consists of only substrings
+     */
+    public boolean consistsOfOnlySubstrings(final String value) {
+        StringBuilder substring = new StringBuilder();
+        
+        for (int i = 0; i < value.length() / 2; ++i) {
+            substring.append(value.charAt(i));
+            String result = value.replaceAll(substring.toString(), "");
+            if (result.length() == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Longest prefix from strings
+     */
+    public String longestPrefix(String... values) {
+        if (values.length == 1) {
+            return values[0];
+        }
+        
+        for (int i = 0; i < values[0].length(); ++i) {
+            char firstValueChar = values[0].charAt(i);
+            for (int j = 1; j < values.length; ++j) {
+                if (i >= values[j].length() || values[j].charAt(i) != firstValueChar) {
+                    return values[0].substring(0, i);
+                }
+            }
+        }
+        
+        return values[0];
     }
 }

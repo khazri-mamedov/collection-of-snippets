@@ -6,7 +6,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertLinesMatch;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class StringManipulationTest {
@@ -218,5 +223,55 @@ public class StringManipulationTest {
         stringManipulation.sortStringsByLength(strings);
         
         assertLinesMatch(Arrays.asList(strings), List.of("a", "bb", "ccc", "dddd"));
+    }
+    
+    @Test
+    public void testSubstringOccurrenceSuccess() {
+        final String testValue = "abbba";
+        final String substring = "bb";
+        
+        assertSame(stringManipulation.substringOccurrence(testValue, substring), 1);
+    }
+    
+    @Test
+    public void testIsAnagramsTrue() {
+        final String firstValue = "Hello world";
+        final String secondValue = "lloehldrow";
+        
+        assertTrue(stringManipulation.isAnagrams(firstValue, secondValue));
+    }
+    
+    @Test
+    public void testMultilineStringsSuccess() {
+        assertEquals(stringManipulation.multilineStrings("Hello", "World"), "Hello\nWorld");
+    }
+    
+    @Test
+    public void testConsistsOfOnlySubstringsTrue() {
+        final String testValue = "hellohellohello";
+        
+        assertTrue(stringManipulation.consistsOfOnlySubstrings(testValue));
+    }
+    
+    @Test
+    public void testConsistsOfOnlySubstringsFalse() {
+        final String testValue = "helloworld";
+        
+        assertFalse(stringManipulation.consistsOfOnlySubstrings(testValue));
+    }
+    
+    @Test
+    public void testLongestPrefixSuccess() {
+        assertEquals(stringManipulation.longestPrefix("ab", "abc", "abd", "abb"), "ab");
+    }
+    
+    @Test
+    public void testLongestPrefixNone() {
+        assertEquals(stringManipulation.longestPrefix("ab", "ac", "cd", "aa"), "");
+    }
+    
+    @Test
+    public void testLongestPrefixAlone() {
+        assertEquals(stringManipulation.longestPrefix("ab"), "ab");
     }
 }
