@@ -13,9 +13,14 @@ import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * Common string manipulations
+ */
 public class StringManipulation {
     /**
      * Counting duplicate characters old-fashion way. UTF-32 isn't supported (low, high surrogates)
+     * @param value for finding duplicates in
+     * @return Map of Characters with count
      */
     public Map<Character, Long> duplicateCharsIterate(final String value) {
         Map<Character, Long> result = new HashMap<>();
@@ -29,6 +34,8 @@ public class StringManipulation {
     
     /**
      * Counting duplicate characters with Stream API. UTF-32 isn't supported (low, high surrogates)
+     * @param value for finding duplicates
+     * @return Map of Characters with count
      */
     public Map<Character, Long> duplicateCharsStream(final String value) {
         return value.chars()
@@ -38,7 +45,9 @@ public class StringManipulation {
     
     /**
      * First non repeated character from input value.
-     * IllegalArgumentException in case of all repeated characters
+     * @param value for finding non repeated char
+     * @return non repeated char
+     * @throws IllegalArgumentException in case of all repeated characters
      */
     public char firstNonRepeated(final String value) {
         LinkedHashMap<Character, Long> result = value.chars()
