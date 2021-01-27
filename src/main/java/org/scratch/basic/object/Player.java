@@ -7,16 +7,20 @@ import java.util.Objects;
 
 /**
  * Equals contract:
- * 1. Reflexivity : An Object equals to itself player.equals(player)
- * 2. Symmetry: player.equals(anotherPlayer) equals anotherPlayer.equals(player)
- * 3. Transitive: if first object equals to second and second to third then first equals third
- * 4. Consistent: Two equal objects must remain equal until one of equality properties is changed
- * 5. Null returns false
+ * <ul>
+ *     <li>Reflexivity : An Object equals to itself player.equals(player)</li>
+ *     <li>Symmetry: player.equals(anotherPlayer) equals anotherPlayer.equals(player)</li>
+ *     <li>Transitive: if first object equals to second and second to third then first equals third</li>
+ *     <li>Consistent: Two equal objects must remain equal until one of equality properties is changed</li>
+ *     <li>Null returns false</li>
+ * </ul>
  *
  * Hashcode contract:
- * 1. Two equal objects must return the same hash code
- * 2. Two objects with the same hash code are not mandatory equal
- * 3. Consistency
+ * <ul>
+ *     <li>Two equal objects must return the same hash code</li>
+ *     <li>Two objects with the same hash code are not mandatory equal</li>
+ *     <li>Consistency</li>
+ * </ul>
  */
 public class Player {
     @Getter
