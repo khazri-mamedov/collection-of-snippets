@@ -63,6 +63,8 @@ public class StringManipulation {
     
     /**
      * Reverse letters in a word. Splitting sentence by whitespace
+     * @param sentence for reversing
+     * @return reversed string
      */
     public String reverseLetters(final String sentence) {
         StringBuilder result = new StringBuilder();
@@ -78,6 +80,8 @@ public class StringManipulation {
     
     /**
      * Reverse letters in a word with Stream API. Splitting sentence by whitespace
+     * @param sentence for reversing
+     * @return reversed string
      */
     public String reverseLettersStream(final String sentence) {
         Pattern pattern = Pattern.compile(" +");
@@ -88,6 +92,8 @@ public class StringManipulation {
     
     /**
      * Checking all characters are digits
+     * @param value for checking
+     * @return true if consists of only digits otherwise false
      */
     public boolean isAllDigits(final String value) {
         for(var ch : value.toCharArray()) {
@@ -100,8 +106,9 @@ public class StringManipulation {
     }
     
     /**
-     * Checking all characters are digits with Stream API.
-     * allMatch will be slower than reverting anyMatch
+     * Checking all characters are digits with Stream API. allMatch will be slower than reverting anyMatch
+     * @param value for checking
+     * @return true if consists of only digits otherwise false
      */
     public boolean isAllDigitsStream(final String value) {
         return !value.chars()
@@ -110,6 +117,8 @@ public class StringManipulation {
     
     /**
      * Count vowels in a string (case-insensitive)
+     * @param value for counting vowels
+     * @return count of vowels
      */
     public long countVowels(final String value) {
         long vowelsCount = 0L;
@@ -126,6 +135,8 @@ public class StringManipulation {
     
     /**
      * Count vowels in a string with Stream API (case-insensitive)
+     * @param value for counting vowels
+     * @return count of vowels
      */
     public long countVowelsStream(final String value) {
         final Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u');
@@ -134,6 +145,9 @@ public class StringManipulation {
     
     /**
      * Count occurrences of character in a word ignoring case
+     * @param word fro counting character
+     * @param ch expected character in a word
+     * @return count of character
      */
     public int occurrencesOfChar(final String word, final char ch) {
         String replacedValue = word.toLowerCase().replace(String.valueOf(ch), "");
@@ -142,6 +156,9 @@ public class StringManipulation {
     
     /**
      * Count occurrences of character in a word with single loop ignoring case
+     * @param word fro counting character
+     * @param ch expected character in a word
+     * @return count of character
      */
     public int occurrencesOfCharLoop(final String word, final char ch) {
         int count = 0;
@@ -156,13 +173,19 @@ public class StringManipulation {
     
     /**
      * Remove whitespaces with regexp
+     * @param value for removing whitespaces
+     * @return new string without whitespaces
      */
     public String removeWhiteSpaces(final String value) {
         return value.replaceAll("\\s", "");
     }
     
     /**
-     * Join words by delimiter using StringJoiner from Java 8
+     * Join words by delimiter using StringJoiner
+     * @param delimiter for joining strings
+     * @param words actual values for joining
+     * @return new string with delimiter joined
+     * @since 1.8
      */
     public String joinByDelimiter(char delimiter, String... words) {
         StringJoiner joiner = new StringJoiner(String.valueOf(delimiter));
@@ -176,6 +199,9 @@ public class StringManipulation {
     
     /**
      * Join words by delimiter using Stream API
+     * @param delimiter for joining strings
+     * @param words actual values for joining
+     * @return new string with delimiter joined
      */
     public String joinByDelimiterStream(char delimiter, String... words) {
         return Arrays.stream(words).collect(Collectors.joining(String.valueOf(delimiter)));
@@ -183,6 +209,8 @@ public class StringManipulation {
     
     /**
      * Checking for palindrome (simple solution)
+     * @param word under check
+     * @return true if palindrome otherwise false
      */
     public boolean isPalindrome(final String word) {
         return word.equals(new StringBuilder(word).reverse().toString());
@@ -190,6 +218,8 @@ public class StringManipulation {
     
     /**
      * Checking for palindrome with single loop
+     * @param word under check
+     * @return true if palindrome otherwise false
      */
     public boolean isPalindromeLoop(final String word) {
         int wordLength = word.length();
@@ -205,6 +235,8 @@ public class StringManipulation {
     
     /**
      * Removing duplicates from a String with Stream API
+     * @param value for removing duplicates
+     * @return duplicates removed string
      */
     public String removeDuplicatesStream(final String value) {
         return Arrays.stream(value.split(""))
@@ -214,6 +246,8 @@ public class StringManipulation {
     
     /**
      * Removing duplicates from a String
+     * @param value for removing duplicates
+     * @return duplicates removed string
      */
     public String removeDuplicatesLoop(final String value) {
         Set<String> distinct = new LinkedHashSet<>();
@@ -226,6 +260,9 @@ public class StringManipulation {
     
     /**
      * Remove occurrence of character in a String with single loop
+     * @param value for removing character occurrence
+     * @param toRemove char to remove
+     * @return new string with removed char
      */
     public String removeCharacter(final String value, char toRemove) {
         StringBuilder result = new StringBuilder();
@@ -240,6 +277,9 @@ public class StringManipulation {
     
     /**
      * Remove occurrence of character in a String with Stream API
+     * @param value for removing character occurrence
+     * @param toRemove char to remove
+     * @return new string with removed char
      */
     public String removeCharacterStream(final String value, char toRemove) {
         return value.chars()
@@ -250,6 +290,8 @@ public class StringManipulation {
     
     /**
      * Find max occurring char in a String using 2 loops
+     * @param value for finding most occurred char
+     * @return most occurred char
      */
     public char mostFoundChar(final String value) {
         Map<Character, Integer> occurrences = new HashMap<>();
@@ -271,6 +313,8 @@ public class StringManipulation {
     
     /**
      * Find max occurring char in a String using Stream API
+     * @param value for finding most occurred char
+     * @return most occurred char
      */
     public char mostFoundCharStream(final String value) {
         return value.chars()
@@ -284,7 +328,8 @@ public class StringManipulation {
     }
     
     /**
-     * Sort strings by length
+     * Sort strings by length. Sorts input array
+     * @param strings for sorting by length
      */
     public void sortStringsByLength(String... strings) {
         Arrays.sort(strings, Comparator.comparingInt(String::length));
@@ -292,6 +337,9 @@ public class StringManipulation {
     
     /**
      * Occurrence of substring in a string. Example: "abbba" has only one bb occurrence
+     * @param value for finding occurrence
+     * @param substring to find
+     * @return occurrences of substring in a value
      */
     public int substringOccurrence(final String value, final String substring) {
         int position = 0;
@@ -308,6 +356,9 @@ public class StringManipulation {
     
     /**
      * Is string anagrams or not. Anagrams - same characters possibly in different order
+     * @param firstValue for checking
+     * @param secondValue for checking with first
+     * @return true if has same characters (ignoring order) otherwise false
      */
     public boolean isAnagrams(final String firstValue, final String secondValue) {
         char[] firstChars = firstValue.replaceAll("\\s", "").toLowerCase().toCharArray();
@@ -321,6 +372,8 @@ public class StringManipulation {
     
     /**
      * Multiline strings before official support in Java 13
+     * @param values for joining with line separator
+     * @return joined string (multiline string)
      */
     public String multilineStrings(String... values) {
         StringJoiner stringJoiner = new StringJoiner(System.lineSeparator());
@@ -333,6 +386,9 @@ public class StringManipulation {
     
     /**
      * Process multiline string
+     * @param multilineString for processing
+     * @param consumer line action
+     * @since 11
      */
     public void processMultilineString(final String multilineString, final Consumer<String> consumer) {
         multilineString.lines().forEach(consumer);
@@ -340,6 +396,8 @@ public class StringManipulation {
     
     /**
      * Is string consists of only substrings
+     * @param value for checking
+     * @return true if consists of only substrings otherwise false
      */
     public boolean consistsOfOnlySubstrings(final String value) {
         StringBuilder substring = new StringBuilder();
@@ -356,6 +414,8 @@ public class StringManipulation {
     
     /**
      * Longest prefix from strings
+     * @param values for finding longest prefix
+     * @return longest prefix
      */
     public String longestPrefix(String... values) {
         if (values.length == 1) {
