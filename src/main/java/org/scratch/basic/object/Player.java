@@ -31,6 +31,8 @@ public class Player {
     @Setter
     private String name;
     
+    public Player() {}
+    
     public Player(String name, int playerId) {
         this.name = name;
         this.playerId = playerId;
