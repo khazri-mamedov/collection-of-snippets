@@ -2,10 +2,12 @@ package org.scratch.basic;
 
 import org.scratch.basic.util.GeneratedIgnoreCoverage;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -38,5 +40,31 @@ public class DateManipulation {
         return zoneIds.stream()
                 .map(zoneId -> dateTime.withZoneSameInstant(ZoneId.of(zoneId)))
                 .collect(Collectors.toList());
+    }
+    
+    /**
+     * Convert old java.util.Date to new java time package (LocalDate)
+     * @param date to convert
+     * @return converted LocalDate
+     */
+    public LocalDate convertToLocalDate(final Date date) {
+        final Instant instant = date.toInstant();
+        return LocalDate.ofInstant(instant, ZoneId.systemDefault());
+    }
+
+    /**
+     * Print LocalDate range
+     */
+    @GeneratedIgnoreCoverage
+    public void printDateRange(final LocalDate fromDate, final LocalDate toDate) {
+        fromDate.datesUntil(toDate).forEach(System.out::println);
+    }
+
+    /**
+     * Calculating actual age in years
+     */
+    public int calculateAge(final LocalDate birthday) {
+        final LocalDate nowDate = LocalDate.now();
+        return nowDate.getYear() - birthday.getYear();
     }
 }

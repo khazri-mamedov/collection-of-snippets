@@ -1,5 +1,7 @@
 package org.scratch.basic;
 
+import org.scratch.basic.util.GeneratedIgnoreCoverage;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -390,6 +392,7 @@ public class StringManipulation {
      * @param consumer line action
      * @since 11
      */
+    @GeneratedIgnoreCoverage
     public void processMultilineString(final String multilineString, final Consumer<String> consumer) {
         multilineString.lines().forEach(consumer);
     }
