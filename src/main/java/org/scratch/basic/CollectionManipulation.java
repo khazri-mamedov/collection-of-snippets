@@ -2,7 +2,11 @@ package org.scratch.basic;
 
 import org.scratch.basic.util.Tuple;
 
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -80,5 +84,63 @@ public class CollectionManipulation {
                 .filter(i -> elem == numbers[i])
                 .findFirst()
                 .orElse(-1);
+    }
+
+    /**
+     * Finding average of numbers
+     * @param numbers to compute avg
+     * @return computed average
+     */
+    public double findAvg(final int[] numbers) {
+        return IntStream.of(numbers).average().orElseThrow();
+    }
+
+    /**
+     * In-place array reversing
+     * @param numbers for reversing
+     * @param <T> any type
+     */
+    public <T> void reverseArray(T[] numbers) {
+        for (int head = 0, tail = numbers.length - 1; head < tail; ++head, --tail) {
+            T temp = numbers[head];
+            numbers[head] = numbers[tail];
+            numbers[tail] = temp;
+        }
+    }
+
+    /**
+     * Reverse collection using Stream API
+     * @param collection for reversing
+     * @param <T> any Comparable type
+     * @return reversed List
+     */
+    public <T extends Comparable<T>> List<T> reverseCollectionStream(final Collection<T> collection) {
+        return collection.stream()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Find index of element in collection with binary search
+     * @param sortedObjects for traversing
+     * @param toFind element to find
+     * @param <T> any Comparable type
+     * @return found index, otherwise -1
+     */
+    public <T extends Comparable<T>> int binarySearch(final List<T> sortedObjects, T toFind) {
+        int high = sortedObjects.size() - 1;
+        int low = 0;
+
+        while (low <= high) {
+            int middle = (low + high) / 2;
+            if (sortedObjects.get(middle).compareTo(toFind) < 0) {
+                low = middle + 1;
+            } else if(sortedObjects.get(middle).compareTo(toFind) > 0) {
+                high = middle - 1;
+            } else if (sortedObjects.get(middle).compareTo(toFind) == 0) {
+                return middle;
+            }
+        }
+        return -1;
     }
 }
