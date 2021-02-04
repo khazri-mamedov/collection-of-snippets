@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -63,8 +64,8 @@ public class DateManipulation {
     /**
      * Calculating actual age in years
      */
-    public int calculateAge(final LocalDate birthday) {
+    public long calculateAge(final LocalDate birthday) {
         final LocalDate nowDate = LocalDate.now();
-        return nowDate.getYear() - birthday.getYear();
+        return Math.abs(ChronoUnit.YEARS.between(nowDate, birthday));
     }
 }

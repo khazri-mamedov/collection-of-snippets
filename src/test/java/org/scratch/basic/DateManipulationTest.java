@@ -39,6 +39,6 @@ public class DateManipulationTest {
     public void calculateAge_CalculatingWithNow_CorrectAge() {
         final LocalDate localDate = LocalDate.of(1991, 1, 23);
 
-        assertSame(dateManipulation.calculateAge(localDate), 30);
+        assertSame(dateManipulation.calculateAge(localDate), 30L);
     }
 }
