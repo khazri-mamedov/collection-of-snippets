@@ -8,7 +8,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CollectionManipulationTest {
     private final CollectionManipulation collectionManipulation = new CollectionManipulation();
@@ -33,7 +37,7 @@ public class CollectionManipulationTest {
 
     @Test
     public void minMax_MinMaxFound_True() {
-        String[] objects = {"F", "A", "E", "C"};
+        String[] objects = {"C", "A", "E", "F"};
 
         final Tuple<String, String> minMax = collectionManipulation.minMax(objects);
 
