@@ -8,11 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CollectionManipulationTest {
     private final CollectionManipulation collectionManipulation = new CollectionManipulation();
@@ -99,5 +95,47 @@ public class CollectionManipulationTest {
         final List<String> sortedLetters = List.of("A", "B", "C", "D", "Q");
 
         assertSame(collectionManipulation.binarySearch(sortedLetters, "W"), -1);
+    }
+    
+    @Test
+    public void isSumOfPairExistOrdered_SumExists_True() {
+        final int[] numbers = {1, 3, 4, 8, 9};
+        
+        assertTrue(collectionManipulation.isSumOfPairExistOrdered(numbers, 4));
+    }
+    
+    @Test
+    public void isSumOfPairExistOrdered_NonExistingSum_False() {
+        final int[] numbers = {1, 4, 5, 8, 10, 12};
+        
+        assertFalse(collectionManipulation.isSumOfPairExistOrdered(numbers, 69));
+    }
+    
+    @Test
+    public void isSumOfPairExistUnordered_SumExists_True() {
+        final int[] numbers = {1, 4, 2, 5, 3, 10, 9};
+        
+        assertTrue(collectionManipulation.isSumOfPairExistUnordered(numbers, 19));
+    }
+    
+    @Test
+    public void isSumOfPairExistUnordered_NonExistingSum_False() {
+        final int[] numbers = {1, 4, 2, 5, 3, 10, 9};
+    
+        assertFalse(collectionManipulation.isSumOfPairExistUnordered(numbers, 99));
+    }
+    
+    @Test
+    public void firstRecurringCharacter_CharacterOccurs_EqualsExpected() {
+        final String value = "ABCA";
+        
+        assertSame(collectionManipulation.firstRecurringCharacter(value), 'A');
+    }
+    
+    @Test
+    public void firstRecurringCharacter_FoundFirst_EqualsExpected() {
+        final String value = "ABACB";
+    
+        assertSame(collectionManipulation.firstRecurringCharacter(value), 'A');
     }
 }

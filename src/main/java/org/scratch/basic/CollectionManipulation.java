@@ -3,9 +3,10 @@ package org.scratch.basic;
 import org.scratch.basic.util.Tuple;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -142,5 +143,67 @@ public class CollectionManipulation {
             }
         }
         return -1;
+    }
+    
+    /**
+     * Finding if pair with sum exists. O(n) time complexity, O(1) space complexity
+     * @param numbers for finding sum (assuming ordered)
+     * @param sum for finding in numbers
+     * @return true if sum exists, otherwise false
+     */
+    public boolean isSumOfPairExistOrdered(final int[] numbers, final int sum) {
+        int head = 0;
+        int tail = numbers.length - 1;
+        
+        while (head < tail) {
+            int calculatedSum = numbers[head] + numbers[tail];
+            if (sum > calculatedSum) {
+                ++head;
+            } else if (sum < calculatedSum) {
+                --tail;
+            } else {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Finding if pair with sum exists. O(n) time complexity, O(n) space complexity
+     * @param numbers for finding sum
+     * @param sum sum for finding in numbers
+     * @return true if sum exists, otherwise false
+     */
+    public boolean isSumOfPairExistUnordered(final int[] numbers, final int sum) {
+        Set<Integer> seenBefore = new HashSet<>();
+        
+        for (var num : numbers) {
+            int calculatedDiff = sum - num;
+            if (seenBefore.contains(calculatedDiff)) {
+                return true;
+            }
+            seenBefore.add(num);
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Find first recurring character. O(n) time complexity, O(n) space complexity
+     * @param value for finding character
+     * @return found character, otherwise Character.MIN_VALUE
+     */
+    public char firstRecurringCharacter(final String value) {
+        Set<Character> seenCharacters = new HashSet<>();
+        
+        for (var character : value.toCharArray()) {
+            if (seenCharacters.contains(character)) {
+                return character;
+            }
+            seenCharacters.add(character);
+        }
+        
+        return Character.MIN_VALUE;
     }
 }
