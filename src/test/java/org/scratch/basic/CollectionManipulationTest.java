@@ -1,10 +1,14 @@
 package org.scratch.basic;
 
 import org.junit.jupiter.api.Test;
+import org.scratch.basic.object.Bottle;
 import org.scratch.basic.util.Tuple;
 
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -137,5 +141,29 @@ public class CollectionManipulationTest {
         final String value = "ABACB";
     
         assertSame(collectionManipulation.firstRecurringCharacter(value), 'A');
+    }
+    
+    @Test
+    public void sortMapByKeyStream_SortedMap_ExpectedSorted() {
+        final Bottle bottle1 = new Bottle(1, "Jenkins");
+        final Bottle bottle2 = new Bottle(2, "Docker");
+        
+        final Map<Bottle, String> bottles = Map.of(bottle1, "Evroopt", bottle2, "Prostore");
+    
+        Comparator<Bottle> bottleComparator = Comparator.comparing(Bottle::getId);
+        
+        assertSame(collectionManipulation.sortMapByKeyStream(bottles, bottleComparator)
+                        .entrySet().iterator().next().getKey().getId(),
+                1);
+    }
+    
+    @Test
+    public void mergeMapsStream_MergedMap_CollisionExpectedSecondValue() {
+        final Map<Integer, String> firstMap = Map.of(1, "some_value");
+        final Map<Integer, String> secondMap = Map.of(1, "some_value2");
+        
+        assertEquals(collectionManipulation
+                .mergeMapsStream(firstMap, secondMap)
+                .entrySet().iterator().next().getValue(), "some_value2");
     }
 }

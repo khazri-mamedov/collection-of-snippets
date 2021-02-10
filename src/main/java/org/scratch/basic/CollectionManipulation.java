@@ -1,14 +1,20 @@
 package org.scratch.basic;
 
+import org.scratch.basic.object.Bottle;
+import org.scratch.basic.util.GeneratedIgnoreCoverage;
 import org.scratch.basic.util.Tuple;
 
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Common collection (also java.util.Map) manipulations
@@ -205,5 +211,36 @@ public class CollectionManipulation {
         }
         
         return Character.MIN_VALUE;
+    }
+    
+    /**
+     * Sort by creating TreeMap (simple)
+     * @return TreeMap with natural order
+     */
+    @GeneratedIgnoreCoverage
+    public <T> Map<T, String> sortMapByKey(final Map<T, String> forSorting) {
+        return new TreeMap<>(forSorting);
+    }
+    
+    /**
+     * Sorts by Stream API
+     * @return sorted map
+     */
+    public Map<Bottle, String> sortMapByKeyStream(final Map<Bottle, String> forSorting, final Comparator<Bottle> comp) {
+        return forSorting.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(comp))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (t, t2) -> t, LinkedHashMap::new));
+    }
+    
+    /**
+     * Merges 2 maps, in case of collision gets second map value
+     * @param firstMap to merge
+     * @param secondMap to merge
+     * @return new map with merged values
+     */
+    public Map<Integer, String> mergeMapsStream(
+            final Map<Integer, String> firstMap, final Map<Integer, String> secondMap) {
+        var concatMaps = Stream.concat(firstMap.entrySet().stream(), secondMap.entrySet().stream());
+        return concatMaps.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (s, s2) -> s2));
     }
 }
