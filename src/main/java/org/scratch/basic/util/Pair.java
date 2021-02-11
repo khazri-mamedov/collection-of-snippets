@@ -1,19 +1,23 @@
 package org.scratch.basic.util;
 
 /**
- * Tuple for returning 2 values from any method
+ * Pair for returning 2 values from any method
  * @param <F> type of first value
  * @param <S> type of second value
  */
-public class Tuple<F, S> {
+public class Pair<F, S> {
     private F first;
     private S second;
 
-    public Tuple(F first, S second) {
+    public Pair(F first, S second) {
         this.first = first;
         this.second = second;
     }
 
+    public static <F, S> Pair<F, S> of(F first, S second) {
+        return new Pair<>(first, second);
+    }
+    
     public S getSecond() {
         return second;
     }

@@ -2,11 +2,10 @@ package org.scratch.basic;
 
 import org.junit.jupiter.api.Test;
 import org.scratch.basic.object.Bottle;
-import org.scratch.basic.util.Tuple;
+import org.scratch.basic.util.Pair;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -39,7 +38,7 @@ public class CollectionManipulationTest {
     public void minMax_MinMaxFound_True() {
         String[] objects = {"C", "A", "E", "F"};
 
-        final Tuple<String, String> minMax = collectionManipulation.minMax(objects);
+        final Pair<String, String> minMax = collectionManipulation.minMax(objects);
 
         assertEquals(minMax.getFirst(), "A");
         assertEquals(minMax.getSecond(), "F");

@@ -2,7 +2,7 @@ package org.scratch.basic;
 
 import org.scratch.basic.object.Bottle;
 import org.scratch.basic.util.GeneratedIgnoreCoverage;
-import org.scratch.basic.util.Tuple;
+import org.scratch.basic.util.Pair;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -63,9 +63,9 @@ public class CollectionManipulation {
      * Finding min and max from array with one loop
      * @param objects to find
      * @param <T> any Comparable type
-     * @return org.scratch.basic.util.Tuple of min and max
+     * @return org.scratch.basic.util.Pair of min and max
      */
-    public <T extends Comparable<T>> Tuple<T, T> minMax(T[] objects) {
+    public <T extends Comparable<T>> Pair<T, T> minMax(T[] objects) {
         T min = objects[0];
         T max = objects[0];
 
@@ -77,7 +77,7 @@ public class CollectionManipulation {
             }
         }
 
-        return new Tuple<>(min, max);
+        return Pair.of(min, max);
     }
 
     /**
